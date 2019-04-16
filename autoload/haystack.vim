@@ -180,8 +180,12 @@ endfunction
 
 function! haystack#score(word, query, ...) abort
   let word = type(a:word) == type({}) ? a:word.word : a:word
+  let breaks = len(substitute(substitute(substitute(word,
+        \ '[[:punct:]]*$', '', ''),
+        \ '.\u\l', '@', 'g'),
+        \ '[^[:punct:]]', '', 'g'))
   return haystack#flx_score(word, a:query, a:0 ? a:1 : haystack#slash()) * 10 /
-        \ (1+len(substitute(substitute(word, '.\u\l', '@', 'g'), '[^[:punct:]]', '', 'g')))
+        \ (1+breaks)
 endfunction
 
 if !has('python')
