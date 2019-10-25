@@ -185,7 +185,7 @@ function! haystack#score(word, query, ...) abort
         \ '.\u\l', '@', 'g'),
         \ '[^[:punct:]]', '', 'g'))
   return haystack#flx_score(word, a:query, a:0 ? a:1 : haystack#slash()) * 10 /
-        \ (1+breaks)
+        \ (2+breaks)
 endfunction
 
 if !has('python')
