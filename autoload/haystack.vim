@@ -188,11 +188,11 @@ function! haystack#score(word, query, ...) abort
         \ (2+breaks)
 endfunction
 
-if !has('python')
+if !has('pythonx')
   finish
 endif
 
-python << EOF
+pythonx << EOF
 import vim
 from collections import defaultdict
 
@@ -229,5 +229,5 @@ def flx_get_matches(hash, query, gt=-1, qi=0):
 EOF
 
 function! s:get_matches(str, query) abort
-  python vim.command('return ' + flx_vim_encode(flx_get_matches(flx_get_hash_for_str(vim.eval('a:str')), vim.eval('a:query'))))
+  pythonx vim.command('return ' + flx_vim_encode(flx_get_matches(flx_get_hash_for_str(vim.eval('a:str')), vim.eval('a:query'))))
 endfunction
